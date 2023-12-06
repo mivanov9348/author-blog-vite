@@ -1,0 +1,76 @@
+.header {
+  display: flex;
+  justify-content: center; /* Center the navigation bar */
+  align-items: center;
+  width: 100%; /* Full width to align the nav in the center */
+}
+
+.nav-menu {
+  display: flex;
+  background-color: #393838;
+  color: #fff;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  font-family: "Arial", sans-serif;
+  width: 95%; /* Adjusted width */
+  border-radius: 15px;
+  margin: 0 auto; /* Center the navigation bar */
+  height: 30px;
+}
+
+.nav-menu a,
+.dropbtn {
+  text-decoration: none;
+  color: #fff;
+  margin-right: 20px;
+  padding: 10px 16px; /* Updated padding for better spacing */
+  display: block; /* Makes the entire area clickable */
+  min-width: 100px; /* Minimum width for each item */
+  border-radius: 4px; /* Rounded corners for a modern look */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+  text-align: center;
+  font-weight: 400;
+}
+
+.nav-menu a:hover,
+.dropbtn:hover {
+  background-color: #424242;
+  color: #ffffff;
+  border: 0.3px solid black;
+  border-radius: 15px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  margin-top: 0px;
+  display: none;
+  position: absolute;
+  background-color: #444;
+  left: 0px;
+  right: 10px;
+  min-width: 10px;
+  z-index: 1;
+  border-radius: 15px;
+  left: 50%;
+  transform: translateX(-50%); /* Center the dropdown content */
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #555; /* Slightly lighter shade on hover */
+}
+
+/* Show Dropdown Content on Hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
