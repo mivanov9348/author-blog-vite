@@ -5,7 +5,6 @@ export default function Header() {
   return (
     <header className="header">
       <nav className="nav-menu">
-        <NavLink to="/">Home</NavLink>
         <NavLink to="author">Author</NavLink>
         <NavLink to="blog">Blog</NavLink>
 

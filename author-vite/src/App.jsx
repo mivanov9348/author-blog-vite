@@ -1,4 +1,3 @@
-import Home from "./pages/Home";
 import Blog from "./pages/Blog/Blog";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -14,7 +13,6 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
             <Route path="Author" element={<Author />} />
             <Route path="blog" element={<Blog />} />
 

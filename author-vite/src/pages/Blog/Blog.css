@@ -1,11 +1,14 @@
 .blog-container {
-  display: contents;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full viewport height */
-  max-width: 1200px; /* Maximum width */
-  width: 100%; /* Responsive width */
-  margin: auto; /* Center the container */
-  padding: 20px; /* Add some padding */
+  margin: 10px auto;
+  max-width: 1800px;
+  width: 90%;
+  padding: 20px;
   overflow: auto;
+  border: 2px solid black;
+  background-color: #3d3d3d;
+  border-radius: 25px;
 }
