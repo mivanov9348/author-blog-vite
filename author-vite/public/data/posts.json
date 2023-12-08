@@ -1,0 +1,71 @@
+[
+  {
+    "id": 1,
+    "title": "Exploring the Depths of Space",
+    "date": "2023-11-15",
+    "content": "Space, the final frontier. In this post, we delve into recent discoveries in space exploration, discussing the potential for life on other planets and the advancements in space travel technology. From the Mars Rover to the latest satellite images of distant galaxies, join us on a journey through the cosmos.",
+    "upvotes": 235,
+    "comments": [
+      {
+        "id": 101,
+        "author": "AstronomyFan",
+        "date": "2023-11-16",
+        "content": "Incredible insights! The universe is more fascinating than we ever imagined.",
+        "upvotes": 45
+      },
+      {
+        "id": 102,
+        "author": "StarGazer",
+        "date": "2023-11-17",
+        "content": "I'm excited about the prospects of finding life beyond Earth. Thanks for sharing.",
+        "upvotes": 30
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "The Art of Mindful Living",
+    "date": "2023-10-22",
+    "content": "Mindfulness is more than a practice; it's a way of life. This post explores various mindfulness techniques and their benefits for mental health. From meditation to mindful eating, learn how incorporating these practices into your daily routine can lead to a more fulfilled and balanced life.",
+    "upvotes": 180,
+    "comments": [
+      {
+        "id": 103,
+        "author": "PeacefulMind",
+        "date": "2023-10-23",
+        "content": "This is just what I needed to read. Starting my meditation journey today!",
+        "upvotes": 25
+      },
+      {
+        "id": 104,
+        "author": "DailyMeditator",
+        "date": "2023-10-24",
+        "content": "Mindfulness has changed my life. Great post!",
+        "upvotes": 20
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "The Evolution of Electric Vehicles",
+    "date": "2023-09-30",
+    "content": "Electric vehicles (EVs) are rapidly changing the automotive landscape. This post delves into the history of EVs, current market trends, and the future of electric transportation. Discover how advancements in battery technology and renewable energy are making EVs more accessible and environmentally friendly.",
+    "upvotes": 210,
+    "comments": [
+      {
+        "id": 105,
+        "author": "EcoDriver",
+        "date": "2023-10-01",
+        "content": "It's great to see how much EVs have evolved over the years. Can't wait to see what the future holds!",
+        "upvotes": 32
+      },
+      {
+        "id": 106,
+        "author": "FutureTech",
+        "date": "2023-10-02",
+        "content": "I'm excited about the potential reduction in carbon emissions with the rise of EVs.",
+        "upvotes": 27
+      }
+    ]
+  }
+]

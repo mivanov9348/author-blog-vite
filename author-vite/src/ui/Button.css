@@ -1,0 +1,12 @@
+.saveBtn {
+  margin-top: 10px;
+  background-color: gray;
+  color: white;
+  transition: background-color 0.3s;
+  font-size: 18px;
+}
+
+.saveBtn:hover {
+  background-color: dimgray;
+  cursor: pointer;
+}

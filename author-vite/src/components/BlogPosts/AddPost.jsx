@@ -1,7 +1,8 @@
 import { useState, useMemo } from "react";
+import Button from "../../ui/Button";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "./AddPost.css"; // Ensure this is correctly imported
+import "./AddPost.css";
 
 export default function AddPost() {
   const [content, setContent] = useState("");
@@ -35,10 +36,18 @@ export default function AddPost() {
     []
   );
 
+  function handleSavePost() {
+    console.log("SAVE MAZNAAA");
+  }
+
   return (
     <div className="text-container">
       <div className="title-container">
-        <input type="text" placeholder="Add A Title..." />
+        <input
+          className="titleInput"
+          type="text"
+          placeholder="Add A Title..."
+        />
       </div>
       <ReactQuill
         theme="snow"
@@ -47,7 +56,9 @@ export default function AddPost() {
         modules={modules}
         placeholder="Add some text..."
       />
-      <button className="saveBtn">Save</button>
+      <Button className="saveBtn" onClick={handleSavePost}>
+        {"Save"}
+      </Button>
     </div>
   );
 }
