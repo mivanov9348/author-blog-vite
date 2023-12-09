@@ -1,5 +1,5 @@
 .header {
-  display: flex;
+  display: inline;
   justify-content: center; /* Center the navigation bar */
   align-items: center;
   width: 100%; /* Full width to align the nav in the center */
@@ -50,13 +50,10 @@
   display: none;
   position: absolute;
   background-color: #444;
-  left: 0px;
-  right: 10px;
+  left: 0; /* Align with the left edge of the dropdown button */
   min-width: 10px;
   z-index: 1;
   border-radius: 15px;
-  left: 50%;
-  transform: translateX(-50%); /* Center the dropdown content */
 }
 
 .dropdown-content a {

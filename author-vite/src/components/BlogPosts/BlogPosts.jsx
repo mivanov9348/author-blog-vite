@@ -9,7 +9,7 @@ export default function Posts() {
   useEffect(() => {
     const fetchPosts = async function () {
       try {
-        const response = await fetch("../../public/data/posts.json");
+        const response = await fetch("http://localhost:3001/api/posts");
         if (!response.ok) {
           throw new Error("No Fetch");
         }

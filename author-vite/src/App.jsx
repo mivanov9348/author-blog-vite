@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Author from "./pages/Author";
 import AllBooks from "./pages/Books/AllBooks";
-import Gallery from "./pages/Gallery";
+import Gallery from "./pages/Gallery/Gallery";
 import BookOne from "./pages/Books/BookOne";
 
 export default function App() {

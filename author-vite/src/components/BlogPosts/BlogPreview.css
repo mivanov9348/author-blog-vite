@@ -1,0 +1,36 @@
+.slider-container {
+  max-width: 100%;
+  margin: auto;
+  height: auto;
+}
+
+.slider-item {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.slider-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.slider-title {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  font-size: 24px;
+}
+
+/* Responsive adjustments for the slider */
+@media (max-width: 768px) {
+  .slider-image {
+    height: 200px;
+  }
+
+  .slider-title {
+    font-size: 20px;
+  }
+}

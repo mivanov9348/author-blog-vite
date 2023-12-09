@@ -1,6 +1,8 @@
 .blog-container {
+  position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   margin: 10px auto;
   max-width: 1800px;
   width: 90%;
@@ -11,48 +13,43 @@
   border-radius: 25px;
 }
 
-.blog-sidebar {
-  flex: 1;
-  max-width: 300px;
-  margin-right: 20px;
-  padding-right: 20px;
-  border-right: 2px solid #555;
-  /* Add additional styling as needed */
+.addPostBtn {
+  position: absolute;
+  top: 10px;
+  height: 30px;
+  background-color: gray;
+  color: wheat;
+  font-size: 14px;
+  font-weight: bolder;
 }
 
-.image-container {
-  width: 100%;
-}
-
-.image-container img {
-  width: 100%;
-  border-radius: 25px;
+.addPostBtn:hover {
+  cursor: pointer;
+  color: black;
 }
 
 .blog-content {
-  flex: 3; /* Adjust the proportion as per your design needs */
+  flex: 3;
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
 }
 
-.add-post-section {
-  width: 95%; /* Ensures it takes the full width */
-  background-color: #4e4e4e; /* Background color */
-  border-radius: 15px; /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-  padding: 20px; /* Padding inside the section */
-  margin-bottom: 20px; /* Space between add-post and posts-section */
+.add-post-section,
+.posts-section {
+  width: 95%;
+  background-color: #4e4e4e;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .posts-section {
-  width: 95%; /* Ensures it takes the full width */
-  background-color: #5e5e5e; /* Slightly different background for contrast */
-  border-radius: 15px; /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-  padding: 20px; /* Padding inside the section */
+  background-color: #5e5e5e;
 }
 
-/* Add more media queries as needed for responsive design */
+/* Responsive design adjustments */
 @media (max-width: 768px) {
   .blog-container {
     flex-direction: column;
