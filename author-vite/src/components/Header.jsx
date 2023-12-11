@@ -1,24 +1,58 @@
 import { NavLink } from "react-router-dom";
-import "./Header.css";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+
+import { useState } from "react";
 
 export default function Header() {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
   return (
-    <header className="header">
-      <nav className="nav-menu">
-        <NavLink to="author">Author</NavLink>
-        <NavLink to="blog">Blog</NavLink>
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: "grey",
+        color: "black",
+        fontFamily: "Higher Jump",
+        fontStyle: "italic",
+      }}
+    >
+      <Toolbar>
+        <Typography
+          variant="h6"
+          style={{ flexGrow: 1 }}
+          component={NavLink}
+          to="/author"
+        >
+          My Site
+        </Typography>
+        <Button color="inherit" component={NavLink} to="/author">
+          Author
+        </Button>
+        <Button color="inherit" component={NavLink} to="/blog">
+          Blog
+        </Button>
+        <Button color="inherit" component={NavLink} to="/stories">
+          Stories
+        </Button>
 
-        <div className="dropdown">
-          <NavLink to="/books/all" className="dropbtn">
-            Books
-          </NavLink>
-          <div className="dropdown-content">
-            <NavLink to="/books/bookOne">Book One</NavLink>
-          </div>
-        </div>
-
-        <NavLink to="gallery">Gallery</NavLink>
-      </nav>
-    </header>
+        <Button color="inherit" component={NavLink} to="/gallery">
+          Gallery
+        </Button>
+      </Toolbar>
+    </AppBar>
   );
 }

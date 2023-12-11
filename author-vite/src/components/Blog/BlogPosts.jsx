@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Select from "../../ui/Select";
-import PostElement from "./PostDetail";
 import "./BlogPosts.css";
 
 export default function Posts() {

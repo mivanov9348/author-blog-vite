@@ -1,43 +1,96 @@
 import React, { useState } from "react";
-import BlogPosts from "../../components/BlogPosts/BlogPosts";
-import Button from "../../ui/Button";
-import Modal from "../../ui/Modal";
-import BlogPreview from "../../components/BlogPosts/BlogPreview";
 import "./Blog.css";
+import {
+  ThemeProvider,
+  CssBaseline,
+  Container,
+  createTheme,
+  Grid,
+  TextField,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import MainPost from "../../components/Blog/MainPost";
+import FeaturedPosts from "../../components/Blog/FeaturedPosts";
 
 const posts = [
-  { id: 1, title: "Post One" },
-  { id: 2, title: "Post Two" },
+  {
+    id: 1,
+    date: "2023-11-11",
+    title: "Post One",
+    content: "Post One Content",
+    image: "../public/Images/wall.png",
+  },
+  {
+    id: 2,
+    date: "2023-08-08",
+    title: "Post Two",
+    contnet: "Post Two Content",
+    image: "../public/Images/1.png",
+  },
+  {
+    id: 3,
+    date: "2023-7-7",
+    title: "Post Three",
+    content: "Post Three Content",
+    image: "../public/Images/2.png",
+  },
 ];
 
+const theme = createTheme({
+  status: {
+    danger: "red  ",
+  },
+});
+
 export default function Blog() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Add your submit logic here
-    setModalOpen(false); // Close modal after submit
-  };
+  const filteredPosts = posts.filter((post) => {
+    const title = post.title || ""; // Fallback to empty string if undefined
+    const content = post.content || ""; // Fallback to empty string if undefined
+
+    return (
+      title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      content.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
 
   return (
-    <div className="blog-container">
-      <Button className="addPostBtn" onClick={() => setModalOpen(true)}>
-        {"Add Post"}
-      </Button>
-
-      {modalOpen && (
-        <Modal onClose={handleCloseModal} onSubmit={handleSubmit} />
-      )}
-
-      <div className="blog-content">
-        {" "}
-        <BlogPreview posts={posts} />
-        <div className="posts-section"></div>
-      </div>
+    <div>
+      <CssBaseline />
+      <Container maxWidth="lg" sx={{ borderRadius: "20px" }}>
+        <main>
+          <MainPost post={posts[0]} />
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconButton>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            sx={{ mb: 2, textAlign: "center" }}
+          />
+          <Grid container spacing={4}>
+            {filteredPosts.map((post) => (
+              <FeaturedPosts key={post.id} post={post} />
+            ))}
+          </Grid>
+        </main>
+      </Container>
     </div>
   );
 }
