@@ -8,7 +8,7 @@ export default function Layout() {
     <div>
       <Header />
       <main>
-        <Box component="main" sx={{ marginTop: 8, marginBottom: 2 }}>
+        <Box component="main" sx={{ marginTop: 1, marginBottom: 2 }}>
           <Outlet />
         </Box>
       </main>

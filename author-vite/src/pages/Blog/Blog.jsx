@@ -64,6 +64,7 @@ export default function Blog() {
   return (
     <div>
       <CssBaseline />
+
       <Container maxWidth="lg" sx={{ borderRadius: "20px" }}>
         <main>
           <MainPost post={posts[0]} />
@@ -82,7 +83,12 @@ export default function Blog() {
                 </InputAdornment>
               ),
             }}
-            sx={{ mb: 2, textAlign: "center" }}
+            sx={{
+              mb: 2,
+              textAlign: "center",
+              backgroundColor: "white",
+              borderRadius: "10px",
+            }}
           />
           <Grid container spacing={4}>
             {filteredPosts.map((post) => (

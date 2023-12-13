@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "date": "2023-12-01",
+    "title": "Mystic Quests in Forgotten Realms",
+    "content": "Embark on a journey through mystical lands where ancient magic and dragons reign supreme. Join our heroes as they seek to uncover forgotten secrets and save their world from looming darkness.",
+    "summary": "An epic adventure in a land where magic and dragons rule.",
+    "category": "fantasy",
+    "upvotes": 2,
+    "mainStory": false,
+    "image": "../../public/Images/wall.png"
+  },
+  {
+    "id": 2,
+    "date": "2023-12-02",
+    "title": "The Enchanted Forest Chronicles",
+    "content": "In the heart of the Enchanted Forest, a young mage discovers her destiny. With the help of enchanted creatures, she must thwart a sinister plot that threatens the balance of her world.",
+    "summary": "A young mage's quest in a magical, enchanted forest.",
+    "category": "fantasy",
+    "upvotes": 2,
+    "mainStory": false,
+    "image": "../../public/Images/2.png"
+  },
+  {
+    "id": 3,
+    "date": "2023-12-03",
+    "title": "Guardians of the Crystal Spire",
+    "content": "Atop the Crystal Spire lies the source of ultimate power. A band of unlikely companions sets out on a quest to protect the spire from dark forces seeking to harness its energy.",
+    "summary": "A tale of guardians protecting a source of ancient power.",
+    "category": "fantasy",
+    "upvotes": 2,
+    "mainStory": false,
+    "image": "../../public/Images/8.png"
+  },
+  {
+    "id": 4,
+    "date": "2023-12-04",
+    "title": "The Last Alchemist of Loria",
+    "content": "In a world where alchemy is all but forgotten, the last practicing alchemist embarks on a quest to rediscover ancient knowledge and revive the lost art, facing trials that challenge the fabric of reality.",
+    "summary": "A journey of rediscovery in a world where alchemy is lost.",
+    "category": "fantasy",
+    "upvotes": 2,
+    "mainStory": false,
+    "image": "../../public/Images/9.png"
+  },
+  {
+    "id": 5,
+    "date": "2023-12-05",
+    "title": "Shadows Over Elvendale",
+    "content": "Elvendale, a realm of peace, faces its darkest hour as shadows creep across the land. A fellowship of diverse beings must unite to confront an ancient evil stirring in the depths of the world.",
+    "summary": "An ancient evil rises in a peaceful realm.",
+    "category": "fantasy",
+    "upvotes": 2,
+    "mainStory": false,
+    "image": "../../public/Images/10.png"
+  },
+  {
+    "id": 6,
+    "date": "2023-12-06",
+    "title": "Whispers in the Haunted Hall",
+    "content": "A mysterious voice echoes through the halls of an ancient castle, leading a group of adventurers to uncover hidden secrets and confront a ghostly presence from the past.",
+    "summary": "An adventure to unveil secrets in a haunted castle.",
+    "category": "horror",
+    "upvotes": 2,
+    "mainStory": false,
+    "image": "../../public/Images/11.png"
+  },
+  {
+    "id": 7,
+    "date": "2023-12-07",
+    "title": "Tales of Starcrossed Lovers",
+    "content": "In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.In a realm where love is governed by the stars, two lovers from rival factions find their destinies intertwined. Their forbidden love could either unite their world or tear it apart.",
+    "summary": "A story of forbidden love in a world ruled by fate.",
+    "category": "romance",
+    "upvotes": 2,
+    "mainStory": true,
+    "image": "../../public/Images/5.png"
+  }
+]

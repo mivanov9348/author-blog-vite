@@ -1,55 +1,75 @@
-import { NavLink } from "react-router-dom";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Menu,
-  MenuItem,
-} from "@mui/material";
-
+import { NavLink, useLocation } from "react-router-dom";
+import { AppBar, Toolbar, Button } from "@mui/material";
 import { useState } from "react";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const location = useLocation();
 
-  const handleOpenMenu = (event) => {
+  function handleOpenMenu(event) {
     setAnchorEl(event.currentTarget);
-  };
+  }
 
-  const handleCloseMenu = () => {
+  function handleCloseMenu() {
     setAnchorEl(null);
-  };
+  }
+
+  function isActive(path) {
+    return location.pathname === path;
+  }
+
   return (
     <AppBar
       position="static"
       sx={{
-        backgroundColor: "grey",
+        backgroundColor: "gray",
         color: "black",
-        fontFamily: "Higher Jump",
+        fontFamily: "Sylfaen",
         fontStyle: "italic",
+        border: "2px solid black",
       }}
     >
-      <Toolbar>
-        <Typography
-          variant="h6"
-          style={{ flexGrow: 1 }}
+      <Toolbar
+        sx={{
+          fontSize: "50px",
+          "& > .MuiButton-root": {
+            fontSize: "20px",
+            fontFamily: "Sylfaen",
+            ":hover": { fontWeight: "bolder" },
+            fontWeight: (path) => (isActive(path) ? "bolder" : "normal"),
+          },
+        }}
+      >
+        <Button
+          color="inherit"
           component={NavLink}
           to="/author"
+          sx={{ fontWeight: isActive("/author") ? "bolder" : "normal" }}
         >
-          My Site
-        </Typography>
-        <Button color="inherit" component={NavLink} to="/author">
           Author
         </Button>
-        <Button color="inherit" component={NavLink} to="/blog">
+        <Button
+          color="inherit"
+          component={NavLink}
+          to="/blog"
+          sx={{ fontWeight: isActive("/blog") ? "bolder" : "normal" }}
+        >
           Blog
         </Button>
-        <Button color="inherit" component={NavLink} to="/stories">
+        <Button
+          color="inherit"
+          component={NavLink}
+          to="/stories"
+          sx={{ fontWeight: isActive("/stories") ? "bolder" : "normal" }}
+        >
           Stories
         </Button>
-
-        <Button color="inherit" component={NavLink} to="/gallery">
+        <Button
+          color="inherit"
+          component={NavLink}
+          to="/gallery"
+          sx={{ fontWeight: isActive("/gallery") ? "bolder" : "normal" }}
+        >
           Gallery
         </Button>
       </Toolbar>
