@@ -3,10 +3,10 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Author from "./pages/Author";
-import AllBooks from "./pages/Books/AllBooks";
 import AllStories from "./pages/Stories/AllStories";
 import Gallery from "./pages/Gallery/Gallery";
-import BookOne from "./pages/Books/BookOne";
+import PostDetail from "./components/Blog/PostDetail";
+
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import StoryDetails from "./pages/Stories/StoryDetails";
 
@@ -27,12 +27,7 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route path="Author" element={<Author />} />
             <Route path="blog" element={<Blog />} />
-
-            <Route path="books/">
-              <Route index element={<AllBooks />} />
-              <Route path="all" element={<AllBooks />} />
-              <Route path="bookOne" element={<BookOne />} />
-            </Route>
+            <Route path="blog/:id" element={<PostDetail />} />
 
             <Route path="stories" element={<AllStories />} />
 

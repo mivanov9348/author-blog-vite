@@ -1,63 +1,47 @@
 import React from "react";
-import { Grid, Typography, Paper, Box, Link } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 export default function MainPost({ post }) {
   return (
-    <Paper
-      elevation={24}
+    <Box
+      component={NavLink}
+      to={`/blog/${post.id}`}
       sx={{
-        position: "relative",
-        backgroundColor: "grey.800",
-        color: "#fff",
-        mb: 4,
-        mt: 3,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundImage: `url(${post.image})`,
-        height: { xs: "400px", md: "400px" },
-        borderRadius: "20px",
+        width: "100%",
+        overflow: "hidden",
+        border: "2px solid black",
+        borderRadius: "10px",
+        textDecoration: "none",
+        color: "inherit",
+        backgroundColor: "inherit",
         "&:hover": {
-          border: 2,
-          borderColor: "black.500",
-          color: "grey",
-          cursor: "pointer",
+          boxShadow: "1px 1px 5px 5px rgba(241, 241, 241, 0.2)",
         },
+        display: "block",
       }}
     >
-      {<img style={{ display: "none" }} src={post.image} alt="Character" />}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          right: 0,
-          left: 0,
-          backgroundColor: "rgba(0,0,0,.3)",
-          borderRadius: "20px",
+      <img
+        style={{
+          width: "100%",
+          height: 350,
+          objectFit: "cover",
+          border: "2px solid black",
+          borderRadius: "10px",
         }}
+        alt={post.title}
+        src={post.image}
       />
-      <Grid container>
-        <Grid item md={6}>
-          <Box
-            sx={{
-              position: "relative",
-              p: { xs: 3, md: 6 },
-              pr: { md: 0 },
-            }}
-          >
-            <Typography variant="h3" color="inherit" gutterBottom>
-              {post.title}
-            </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
-              {post.content}
-            </Typography>
-            <Link variant="subtitle1" href="#">
-              Link
-            </Link>
-          </Box>
-        </Grid>
-      </Grid>
-    </Paper>
+
+      <Box sx={{ padding: 2, color: "white" }}>
+        <Typography variant="h5" sx={{ mb: 1 }}>
+          {post.title}
+        </Typography>
+        <Typography variant="subtitle1" sx={{ mb: 1 }}>
+          {post.date}
+        </Typography>
+        <Typography variant="body1">{post.summary}</Typography>
+      </Box>
+    </Box>
   );
 }
