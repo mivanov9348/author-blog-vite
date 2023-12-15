@@ -8,7 +8,7 @@
     "category": "fantasy",
     "upvotes": 2,
     "mainStory": false,
-    "image": "../../public/Images/wall.png"
+    "image": "http://localhost:3000/uploads/5.png"
   },
   {
     "id": 2,
@@ -19,7 +19,7 @@
     "category": "fantasy",
     "upvotes": 2,
     "mainStory": false,
-    "image": "../../public/Images/2.png"
+    "image": "http://localhost:3000/uploads/10.png"
   },
   {
     "id": 3,
@@ -30,7 +30,7 @@
     "category": "fantasy",
     "upvotes": 2,
     "mainStory": false,
-    "image": "../../public/Images/8.png"
+    "image": "http://localhost:3000/uploads/9.png"
   },
   {
     "id": 4,
@@ -41,7 +41,7 @@
     "category": "fantasy",
     "upvotes": 2,
     "mainStory": false,
-    "image": "../../public/Images/9.png"
+    "image": "http://localhost:3000/uploads/8.png"
   },
   {
     "id": 5,
@@ -52,7 +52,7 @@
     "category": "fantasy",
     "upvotes": 2,
     "mainStory": false,
-    "image": "../../public/Images/10.png"
+    "image": "http://localhost:3000/uploads/7.png"
   },
   {
     "id": 6,
@@ -63,7 +63,7 @@
     "category": "horror",
     "upvotes": 2,
     "mainStory": false,
-    "image": "../../public/Images/11.png"
+    "image": "http://localhost:3000/uploads/6.png"
   },
   {
     "id": 7,
@@ -74,6 +74,6 @@
     "category": "romance",
     "upvotes": 2,
     "mainStory": true,
-    "image": "../../public/Images/5.png"
+    "image": "http://localhost:3000/uploads/2.png"
   }
 ]

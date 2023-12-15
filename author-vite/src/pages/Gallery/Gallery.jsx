@@ -1,30 +1,39 @@
-import ImageDetail from "./ImageDetail";
-import "./Gallery.css";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
+import ImageCard from "../../components/Gallery/ImageCard";
+import Grid from "@mui/material/Grid";
+import Pagination from "@mui/material/Pagination";
+import Box from "@mui/material/Box";
 
 export default function Gallery() {
-  const [images, setImages] = useState([]);
+  const [page, setPage] = useState(1);
+  const imagesPerPage = 15;
+  const totalImages = 45; // Assuming you have a total of 45 images
+  const totalPages = Math.ceil(totalImages / imagesPerPage);
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/api/images");
-        const data = await response.json();
-        setImages(data.map((filename) => `../public/Images/${filename}`));
-        console.log(images);
-      } catch (error) {
-        console.error("Error fetching images:", error);
-      }
-    };
+  // Dummy array of images for demonstration
 
-    fetchImages();
-  }, []);
+  // Handle page change
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
+  // Calculate range for current page
+  const startIndex = (page - 1) * imagesPerPage;
+  const endIndex = startIndex + imagesPerPage;
+  const currentImages = images.slice(startIndex, endIndex);
 
   return (
-    <div className="gallery">
-      {images.map((image, index) => (
-        <ImageDetail src={image} key={index} alt={`Image ${index + 1}`} />
-      ))}
-    </div>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        {currentImages.map((img, index) => (
+          <Grid item xs={12} sm={6} md={4} lg={2.4} key={index}>
+            <ImageCard imageSrc={"https://localhost:3000/uploads/6.png"} />
+          </Grid>
+        ))}
+      </Grid>
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+        <Pagination count={totalPages} page={page} onChange={handleChange} />
+      </Box>
+    </Box>
   );
 }

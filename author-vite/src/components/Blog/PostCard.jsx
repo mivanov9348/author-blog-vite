@@ -24,7 +24,7 @@ export default function PostCard({ post }) {
           component="img"
           sx={{
             width: 160,
-            height: "fit-height",
+            height: "250px",
             borderRight: "3px solid darkgray",
             display: { xs: "none", sm: "block" },
           }}

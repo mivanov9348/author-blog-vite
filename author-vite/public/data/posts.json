@@ -5,7 +5,7 @@
     "date": "2023-11-15",
     "summary": "Space, the final frontier. In this post, we delve into recent discoveries in space exploration...",
     "content": "Space, the final frontier. In this post, we delve into recent discoveries in space exploration, discussing the potential for life on other planets and the advancements in space travel technology. From the Mars Rover to the latest satellite images of distant galaxies, join us on a journey through the cosmos.",
-    "image": "../../public/Images/wall.png",
+    "image": "http://localhost:3000/uploads/0.png",
     "upvotes": 235,
     "comments": [
       {
@@ -13,7 +13,7 @@
         "author": "AstronomyFan",
         "date": "2023-11-16",
         "content": "Incredible insights! The universe is more fascinating than we ever imagined.",
-        "image": "../../public/Images/3.png",
+        "image": "http://localhost:3000/uploads/2.png",
         "upvotes": 45
       },
       {
@@ -21,7 +21,7 @@
         "author": "StarGazer",
         "date": "2023-11-17",
         "content": "I'm excited about the prospects of finding life beyond Earth. Thanks for sharing.",
-        "image": "../../public/Images/wall.png",
+        "image": "http://localhost:3000/uploads/2.png",
         "upvotes": 30
       }
     ]
@@ -32,7 +32,7 @@
     "summary": "Mindfulness is more than a practice; it's a way ofe than a practice; it's a way ofe than a practice; it's a way ofe than a practice; it's a way of life...",
     "date": "2023-10-22",
     "content": "Mindfulness is more than a practice; it's a way of life. This post explores various mindfulness techniques and their benefits for mental health. From meditation to mindful eating, learn how incorporating these practices into your daily routine can lead to a more fulfilled and balanced life.",
-    "image": "../../public/Images/wall.png",
+    "image": "http://localhost:3000/uploads/2.png",
     "upvotes": 180,
     "comments": [
       {
@@ -40,7 +40,7 @@
         "author": "PeacefulMind",
         "date": "2023-10-23",
         "content": "This is just what I needed to read. Starting my meditation journey today!",
-        "image": "../../public/Images/5.png",
+        "image": "http://localhost:3000/uploads/2.png",
         "upvotes": 25
       },
       {
@@ -48,7 +48,7 @@
         "author": "DailyMeditator",
         "date": "2023-10-24",
         "content": "Mindfulness has changed my life. Great post!",
-        "image": "../../public/Images/9.png",
+        "image": "http://localhost:3000/uploads/2.png",
         "upvotes": 20
       }
     ]
@@ -59,7 +59,7 @@
     "date": "2023-09-30",
     "summary": "Electric vehicles (EVs) are rapidly changing the automotive landscape...",
     "content": "Electric vehicles (EVs) are rapidly changing the automotive landscape. This post delves into the history of EVs, current market trends, and the future of electric transportation. Discover how advancements in battery technology and renewable energy are making EVs more accessible and environmentally friendly.",
-    "image": "../../public/Images/10.png",
+    "image": "http://localhost:3000/uploads/5.png",
     "upvotes": 210,
     "comments": [
       {
@@ -67,7 +67,7 @@
         "author": "EcoDriver",
         "date": "2023-10-01",
         "content": "It's great to see how much EVs have evolved over the years. Can't wait to see what the future holds!",
-        "image": "../../public/Images/11.png",
+        "image": "http://localhost:3000/uploads/2.png",
         "upvotes": 32
       },
       {
@@ -75,7 +75,7 @@
         "author": "FutureTech",
         "date": "2023-10-02",
         "content": "I'm excited about the potential reduction in carbon emissions with the rise of EVs.",
-        "image": "../../public/Images/8.png",
+        "image": "http://localhost:3000/uploads/2.png",
         "upvotes": 27
       }
     ]

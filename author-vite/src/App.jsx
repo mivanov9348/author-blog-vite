@@ -8,7 +8,7 @@ import Gallery from "./pages/Gallery/Gallery";
 import PostDetail from "./components/Blog/PostDetail";
 
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
-import StoryDetails from "./pages/Stories/StoryDetails";
+import StoryDetails from "./components/Stories/StoryDetails";
 
 const theme = createTheme({
   palette: {

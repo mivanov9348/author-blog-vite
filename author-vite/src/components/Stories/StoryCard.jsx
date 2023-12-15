@@ -31,7 +31,7 @@ export default function StoryCard({ story }) {
         <CardContent sx={{ borderTop: "4px solid gray", height: "150px" }}>
           <Typography gutterBottom variant="h6" component="div">
             {story.title}
-          </Typography>{" "}
+          </Typography>
           <Typography variant="body2" color="green">
             {story.date}
             <Typography variant="body2" color="text.secondary">

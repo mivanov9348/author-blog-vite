@@ -2,26 +2,34 @@ import {
   Container,
   CssBaseline,
   Grid,
-  Paper,
   TextField,
   IconButton,
   InputAdornment,
   Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from "@mui/icons-material/Add";
-import { NavLink } from "react-router-dom";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 import posts from "../../../public/data/posts.json";
 import BlogSidebar from "../../components/Blog/BlogSidebar";
 import MainPost from "../../components/Blog/MainPost";
 import PostCard from "../../components/Blog/PostCard";
+import AddPostModal from "../../components/Blog/AddPostModal";
 import { useState } from "react";
 
 export default function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   function handleSearchChange(e) {
     setSearchQuery(e.target.value);
+  }
+
+  function handleOpenModal() {
+    setModalOpen(true);
+  }
+
+  function handleCloseModal() {
+    setModalOpen(false);
   }
 
   const filteredPosts = posts.filter(
@@ -31,23 +39,24 @@ export default function Blog() {
   );
 
   return (
-    <Container maxWidth={false} sx={{ mt: 2, mb: 2 }}>
+    <Container maxWidth={false} sx={{ mt: 0, mb: 1 }}>
       <CssBaseline />
       <Box
         sx={{
           display: "flex",
           justifyContent: "flex-end",
-          mb: 2,
+          mb: 0,
         }}
       >
         <IconButton>
-          <AddIcon
-            component={NavLink}
-            to={""}
+          <AddBoxIcon
+            onClick={handleOpenModal}
             sx={{
               height: "40px",
-              width: "auto",
-              border: "4px solid darkgray",
+              width: "40px",
+              color: "white",
+              mb: 0,
+              mt: 0,
               ":hover": {
                 boxShadow: "0 1px 1px 1px darkgray",
               },
@@ -90,6 +99,7 @@ export default function Blog() {
           <PostCard key={post.id} post={post} />
         ))}
       </Grid>
+      {modalOpen && <AddPostModal onClose={handleCloseModal} />}
     </Container>
   );
 }
