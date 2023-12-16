@@ -24,6 +24,7 @@ export default function AddStoryModal({ onClose }) {
 
     const formData = new FormData();
     formData.append("image", image);
+    formData.append("folder", "StoriesImages");
 
     fetch("http://localhost:3000/upload", {
       method: "POST",

@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 
 const app = express();
 
@@ -52,6 +53,17 @@ app.post("/upload", upload.single("image"), (req, res) => {
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Something broke!");
+});
+
+app.get("/uploads", (req, res) => {
+  fs.readdir(path.join(__dirname, "uploads"), (err, files) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Error reading files");
+    }
+    const filePaths = files.map((file) => `uploads/${file}`);
+    res.json(filePaths);
+  });
 });
 
 // Server Setup
