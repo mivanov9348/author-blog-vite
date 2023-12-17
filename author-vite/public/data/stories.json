@@ -5,6 +5,10 @@
     "title": "Mystic Quests in Forgotten Realms",
     "content": "Embark on a journey through mystical lands where ancient magic and dragons reign supreme. Join our heroes as they seek to uncover forgotten secrets and save their world from looming darkness.",
     "summary": "An epic adventure in a land where magic and dragons rule.",
+    "comments": [
+      { "id": 1, "nickname": "user1", "comment": "comment1" },
+      { "id": 2, "nickname": "user2", "comment": "comment2" }
+    ],
     "category": "fantasy",
     "upvotes": 2,
     "mainStory": false,

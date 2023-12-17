@@ -11,8 +11,11 @@ import KeyboardBackspaceSharpIcon from "@mui/icons-material/KeyboardBackspaceSha
 
 import { useParams, useNavigate } from "react-router-dom";
 import stories from "../../../public/data/stories.json";
+import { useState } from "react";
 
 export default function StoryDetails() {
+  const [showComments, setShowComments] = useState(false);
+
   const navigate = useNavigate();
   const { id } = useParams();
   const story = stories.find((story) => story.id === parseInt(id));
@@ -23,6 +26,10 @@ export default function StoryDetails() {
         <Typography variant="h3">Story not Found!</Typography>
       </Box>
     );
+  }
+
+  function toggleComments() {
+    setShowComments(!showComments);
   }
 
   function handleBack() {
@@ -47,7 +54,6 @@ export default function StoryDetails() {
       <IconButton onClick={handleBack} sx={{ marginTop: "-20px" }}>
         <KeyboardBackspaceSharpIcon sx={{ fontSize: "30px" }} />
       </IconButton>
-
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <CardMedia
@@ -80,7 +86,19 @@ export default function StoryDetails() {
             👍 Likes: 1
           </Typography>
         </Grid>
-      </Grid>
+      </Grid>{" "}
+      <Button onClick={toggleComments} variant="contained" color="primary">
+        {showComments ? "Hide Comments" : "Show Comments"}
+      </Button>
+      {showComments && (
+        <Box sx={{ marginTop: 2 }}>
+          {story.comments.map((comment, index) => (
+            <Typography key={index}>
+              nickname: {comment.nickname} - comment: {comment.comment}
+            </Typography>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 }

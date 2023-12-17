@@ -15,10 +15,12 @@ import MainPost from "../../components/Blog/MainPost";
 import PostCard from "../../components/Blog/PostCard";
 import AddPostModal from "../../components/Blog/AddPostModal";
 import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const { user } = useAuth();
 
   function handleSearchChange(e) {
     setSearchQuery(e.target.value);
@@ -41,29 +43,32 @@ export default function Blog() {
   return (
     <Container maxWidth={false} sx={{ mt: 0, mb: 1 }}>
       <CssBaseline />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          mb: 0,
-        }}
-      >
-        <IconButton>
-          <AddBoxIcon
-            onClick={handleOpenModal}
-            sx={{
-              height: "40px",
-              width: "40px",
-              color: "white",
-              mb: 0,
-              mt: 0,
-              ":hover": {
-                boxShadow: "0 1px 1px 1px darkgray",
-              },
-            }}
-          />
-        </IconButton>
-      </Box>
+      {user && user.role === "admin" && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            mb: 0,
+          }}
+        >
+          <IconButton>
+            <AddBoxIcon
+              onClick={handleOpenModal}
+              sx={{
+                height: "40px",
+                width: "40px",
+                color: "white",
+                mb: 0,
+                mt: 0,
+                ":hover": {
+                  boxShadow: "0 1px 1px 1px darkgray",
+                },
+              }}
+            />
+          </IconButton>
+        </Box>
+      )}
+
       <Grid
         container
         spacing={2}
