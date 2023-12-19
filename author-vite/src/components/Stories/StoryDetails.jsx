@@ -79,6 +79,7 @@ export default function StoryDetails() {
           >
             Published on: {story.date}
           </Typography>
+
           <Typography variant="body1" paragraph>
             {story.content}
           </Typography>

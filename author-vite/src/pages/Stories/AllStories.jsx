@@ -1,18 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, CssBaseline, Grid } from "@mui/material";
 import MainStory from "../../components/Stories/MainStory";
 import Sidebar from "../../components/Stories/Sidebar";
 import StoryCard from "../../components/Stories/StoryCard";
-import stories from "../../../public/data/stories.json";
 
 export default function AllStories() {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [stories, setStories] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/stories")
+      .then((res) => res.json())
+      .then((data) => setStories(data))
+      .catch((error) => console.error("Error on fetching", error));
+  }, []);
 
   const mainStory = stories.find((story) => story.mainStory === true);
 
   function handleChangeCategory(category) {
     setSelectedCategory(category);
-    console.log(category);
   }
 
   const filteredStories =
@@ -52,8 +58,8 @@ export default function AllStories() {
           <Grid item xs={12} md={10}>
             <MainStory story={mainStory} />
             <Grid container spacing={2}>
-              {filteredStories.map((story, index) => (
-                <Grid item xs={12} sm={4} key={index}>
+              {filteredStories.map((story) => (
+                <Grid item xs={12} sm={4} key={story._id}>
                   <StoryCard story={story} />
                 </Grid>
               ))}

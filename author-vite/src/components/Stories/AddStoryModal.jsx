@@ -39,20 +39,28 @@ export default function AddStoryModal({ onClose }) {
       .then((data) => {
         console.log("Image uploaded successfully:", data);
 
-        const newPost = {
+        const newStory = {
           title,
-          date,
           content,
-          imageUrl: data.imagePath,
+          image: data.imagePath,
+          upvotes: 0,
+          comments: [],
         };
 
-        console.log(newPost);
-
-        setTitle("");
-        setDate("");
-        setContent("");
-        setImage(null);
-        onClose();
+        fetch("http://localhost:3000/api/stories", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newStory),
+        })
+          .then((res) => res.json())
+          .then((post) => {
+            console.log("Post Created", post);
+            setTitle("");
+            setDate("");
+            setContent("");
+            setImage(null);
+            onClose();
+          });
       })
       .catch((error) => {
         console.error("Error uploading the image:", error);
@@ -92,14 +100,6 @@ export default function AddStoryModal({ onClose }) {
             label="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            margin="normal"
-          />
-          <TextField
-            fullWidth
-            label="Date"
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
             margin="normal"
           />
         </Box>

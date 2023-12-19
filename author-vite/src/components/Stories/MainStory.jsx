@@ -6,8 +6,18 @@ import {
   Typography,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 export default function MainStory({ story }) {
+  if (!story) {
+    return null;
+  }
+  const sanitizedSummary = DOMPurify.sanitize(story.summary);
+
+  function convertDate(date) {
+    return new Date(date).toLocaleDateString();
+  }
+
   return (
     <Card
       sx={{
@@ -21,7 +31,7 @@ export default function MainStory({ story }) {
         },
       }}
     >
-      <CardActionArea component={NavLink} to={`/stories/${story.id}`}>
+      <CardActionArea component={NavLink} to={`/stories/${story._id}`}>
         <CardMedia
           component="img"
           height="300"
@@ -29,15 +39,17 @@ export default function MainStory({ story }) {
           alt={story.image}
           sx={{ objectFit: "cover" }}
         />
+
         <CardContent sx={{ borderTop: "4px solid gray" }}>
           <Typography gutterBottom variant="h5" component="div">
             {story.title}
           </Typography>
           <Typography variant="body2" color="green">
-            {story.date}
+            {new Date(story.datePosted).toLocaleDateString()}
           </Typography>
+
           <Typography variant="body1" color="text.primary">
-            {story.content}
+            dangerouslySetInnerHTML={{ __html: sanitizedSummary }}
           </Typography>
         </CardContent>
       </CardActionArea>

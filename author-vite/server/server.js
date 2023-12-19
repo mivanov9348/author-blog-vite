@@ -1,7 +1,11 @@
 const express = require("express");
+
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+
+const mongoose = require("./database");
+const { User, Post, Comment, Story } = require("../models/ModelsCollection"); // Adjust the path as necessary
 
 const app = express();
 
@@ -18,6 +22,8 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+app.use(express.json());
 
 // Multer Configuration
 const storage = multer.diskStorage({
@@ -64,6 +70,58 @@ app.get("/uploads", (req, res) => {
     const filePaths = files.map((file) => `uploads/${file}`);
     res.json(filePaths);
   });
+});
+
+app.get("/api/stories", async (req, res) => {
+  try {
+    const stories = await Story.find();
+    res.json(stories);
+  } catch (error) {
+    res.status(500).send("Error fetching stories");
+  }
+});
+
+//dbb
+
+function createSummary(text) {
+  return text.substring(0, 50) + (text.length > 50 ? "..." : "");
+}
+
+app.post("/api/posts", (req, res) => {
+  const newPost = new Post({
+    title: req.body.title,
+    summary: createSummary(req.body.content),
+    content: req.body.content,
+    image: req.body.image,
+    upvotes: req.body.upvotes,
+    comments: req.body.comments,
+  });
+
+  newPost
+    .save()
+    .then((post) => res.status(201).json(post))
+    .catch((err) =>
+      res.status(400).json({ message: "Error creating Post", error: err })
+    );
+});
+
+app.post("/api/stories", (req, res) => {
+  const newStory = new Story({
+    title: req.body.title,
+    summary: createSummary(req.body.content),
+    content: req.body.content,
+    image: req.body.image,
+    upvotes: req.body.upvotes,
+    comments: req.body.comments,
+    mainPost: false,
+  });
+
+  newStory
+    .save()
+    .then((story) => res.status(201).json(story))
+    .catch((err) =>
+      res.status(400).json({ message: "Error for the Post", error: err })
+    );
 });
 
 // Server Setup

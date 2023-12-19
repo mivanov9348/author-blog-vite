@@ -40,18 +40,26 @@ export default function AddPostModal({ onClose }) {
 
         const newPost = {
           title,
-          date,
           content,
-          imageUrl: data.imagePath,
+          image: data.imagePath,
+          upvotes: 0,
+          comments: [],
         };
 
-        console.log(newPost);
-
-        setTitle("");
-        setDate("");
-        setContent("");
-        setImage(null);
-        onClose();
+        fetch("http://localhost:3000/api/posts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newPost),
+        })
+          .then((res) => res.json())
+          .then((post) => {
+            console.log("Post Created", post);
+            setTitle("");
+            setDate("");
+            setContent("");
+            setImage(null);
+            onClose();
+          });
       })
       .catch((error) => {
         console.error("Error uploading the image:", error);
@@ -91,13 +99,6 @@ export default function AddPostModal({ onClose }) {
             label="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            margin="normal"
-          />
-          <TextField
-            fullWidth
-            label="Date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
             margin="normal"
           />
         </Box>
