@@ -14,10 +14,6 @@ export default function MainStory({ story }) {
   }
   const sanitizedSummary = DOMPurify.sanitize(story.summary);
 
-  function convertDate(date) {
-    return new Date(date).toLocaleDateString();
-  }
-
   return (
     <Card
       sx={{
@@ -35,7 +31,7 @@ export default function MainStory({ story }) {
         <CardMedia
           component="img"
           height="300"
-          image={story.image}
+          image={`http://localhost:3000${story.image}`}
           alt={story.image}
           sx={{ objectFit: "cover" }}
         />
@@ -48,9 +44,13 @@ export default function MainStory({ story }) {
             {new Date(story.datePosted).toLocaleDateString()}
           </Typography>
 
-          <Typography variant="body1" color="text.primary">
-            dangerouslySetInnerHTML={{ __html: sanitizedSummary }}
-          </Typography>
+          <Typography
+            variant="body1"
+            color="text.primary"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(story.content),
+            }}
+          />
         </CardContent>
       </CardActionArea>
     </Card>

@@ -4,7 +4,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useState } from "react";
 
-export default function AddStoryModal({ onClose }) {
+export default function AddStoryModal({ onClose, onNewStoryAdded }) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [content, setContent] = useState("");
@@ -60,6 +60,7 @@ export default function AddStoryModal({ onClose }) {
             setContent("");
             setImage(null);
             onClose();
+            onNewStoryAdded(post);
           });
       })
       .catch((error) => {

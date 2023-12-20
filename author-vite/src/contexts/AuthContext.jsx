@@ -18,41 +18,44 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  function login(email, password) {
-    const demoUsers = [
-      {
-        email: "admin@demo.com",
-        nickname: "admin",
-        password: "admin123",
-        role: "admin",
-      },
-      {
-        email: "user@demo.com",
-        nickname: "user",
-        password: "user123",
-        role: "user",
-      },
-    ];
+  async function login(email, password) {
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const user = demoUsers.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    if (user) {
-      setUser({ email: user.email, role: user.role, nickname: user.nickname });
-      Cookies.set(
-        "user",
-        JSON.stringify({
-          email: user.email,
-          role: user.role,
-          nickname: user.nickname,
-        }),
-        { expires: 7 }
-      );
-      return true;
+      if (response.ok) {
+        const data = await response.json();
+        return true;
+      } else {
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      return false;
     }
+  }
 
-    return false;
+  //register
+
+  async function register(email, password) {
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      return response.ok; // Връща true, ако регистрацията е успешна
+    } catch (error) {
+      console.error("Registration error:", error);
+      return false;
+    }
   }
 
   function logout() {
@@ -61,7 +64,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

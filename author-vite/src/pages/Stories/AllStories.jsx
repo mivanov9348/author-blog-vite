@@ -4,7 +4,7 @@ import MainStory from "../../components/Stories/MainStory";
 import Sidebar from "../../components/Stories/Sidebar";
 import StoryCard from "../../components/Stories/StoryCard";
 
-export default function AllStories() {
+export default function AllStories({ onStoryDelete }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [stories, setStories] = useState([]);
 
@@ -17,8 +17,18 @@ export default function AllStories() {
 
   const mainStory = stories.find((story) => story.mainStory === true);
 
+  function onStoryDelete(deletedStoryId) {
+    setStories((currentStories) =>
+      currentStories.filter((story) => story._id !== deletedStoryId)
+    );
+  }
+
   function handleChangeCategory(category) {
     setSelectedCategory(category);
+  }
+
+  function addNewStoryToList(newStory) {
+    setStories((prevStories) => [newStory, ...prevStories]);
   }
 
   const filteredStories =
@@ -53,7 +63,10 @@ export default function AllStories() {
             md={2}
             sx={{ display: "flex", alignItems: "center" }}
           >
-            <Sidebar onCategorySelect={handleChangeCategory} />
+            <Sidebar
+              onCategorySelect={handleChangeCategory}
+              onNewStoryAdded={addNewStoryToList}
+            />
           </Grid>
           <Grid item xs={12} md={10}>
             <MainStory story={mainStory} />

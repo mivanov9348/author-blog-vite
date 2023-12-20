@@ -9,7 +9,7 @@ const StorySchema = new mongoose.Schema({
   image: { type: String },
   upvotes: { type: Number, default: 0 },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
-  mainPost: { type: Boolean, defaule: false },
+  mainStory: { type: Boolean, defaule: false },
 });
 
 const Story = mongoose.model("Story", StorySchema);

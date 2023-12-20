@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import AddStoryModal from "./AddStoryModal";
 
-export default function Sidebar({ onCategorySelect }) {
+export default function Sidebar({ onCategorySelect, onNewStoryAdded }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   function handleOpenModal() {
@@ -72,43 +72,12 @@ export default function Sidebar({ onCategorySelect }) {
         All
       </Button>
 
-      <Button
-        onClick={() => handleCategorySelect("Fantasy")}
-        sx={{
-          width: "100%",
-          justifyContent: "center",
-          color: "#FFF",
-          ":hover": { border: "1px solid gray" },
-        }}
-      >
-        Fantasy
-      </Button>
-
-      <Button
-        onClick={() => handleCategorySelect("Horror")}
-        sx={{
-          width: "100%",
-          justifyContent: "center",
-          color: "#FFF",
-          ":hover": { border: "1px solid gray" },
-        }}
-      >
-        Horror
-      </Button>
-
-      <Button
-        onClick={() => handleCategorySelect("Thriller")}
-        sx={{
-          width: "100%",
-          justifyContent: "center",
-          color: "#FFF",
-          ":hover": { border: "1px solid gray" },
-        }}
-      >
-        Thriller
-      </Button>
-
-      {modalOpen && <AddStoryModal onClose={handleCloseModal} />}
+      {modalOpen && (
+        <AddStoryModal
+          onClose={handleCloseModal}
+          onNewStoryAdded={onNewStoryAdded}
+        />
+      )}
     </Box>
   );
 }
