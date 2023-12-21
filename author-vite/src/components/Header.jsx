@@ -75,9 +75,11 @@ export default function Header() {
                 color="inherit"
                 component={NavLink}
                 to="/auth"
-                sx={{ fontWeight: isActive("/login") ? "bolder" : "normal" }}
+                sx={{
+                  fontWeight: isActive("/login") ? "bolder" : "normal",
+                }}
               >
-                Login
+                Login/Register
               </Button>
             </>
           ) : (
@@ -88,7 +90,7 @@ export default function Header() {
                 component={NavLink}
                 to="/userconfig"
               >
-                {user.nickname}
+                {user.email.split("@")[0]}
               </Button>
               <Button
                 color="inherit"

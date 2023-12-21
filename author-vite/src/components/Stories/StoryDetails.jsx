@@ -8,17 +8,25 @@ import {
   IconButton,
 } from "@mui/material";
 import KeyboardBackspaceSharpIcon from "@mui/icons-material/KeyboardBackspaceSharp";
-
 import { useParams, useNavigate } from "react-router-dom";
-import stories from "../../../public/data/stories.json";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import DOMPurify from "dompurify";
 
 export default function StoryDetails() {
   const [showComments, setShowComments] = useState(false);
+  const [stories, setStories] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/stories")
+      .then((res) => res.json())
+      .then((data) => setStories(data))
+      .catch((error) => console.error("Error on fetching", error));
+  }, []);
 
   const navigate = useNavigate();
   const { id } = useParams();
-  const story = stories.find((story) => story.id === parseInt(id));
+
+  const story = stories.find((story) => story._id === id);
 
   if (!story) {
     return (
@@ -27,6 +35,9 @@ export default function StoryDetails() {
       </Box>
     );
   }
+
+  const sanitizedSummary = DOMPurify.sanitize(story.summary);
+  const sanitizedContent = DOMPurify.sanitize(story.content);
 
   function toggleComments() {
     setShowComments(!showComments);
@@ -59,7 +70,7 @@ export default function StoryDetails() {
           <CardMedia
             component="img"
             height="400px"
-            image={story.image}
+            image={`http://localhost:3000${story.image}`}
             alt={story.title}
             sx={{
               width: "100%", // Responsive width
@@ -77,12 +88,14 @@ export default function StoryDetails() {
             color="text.secondary"
             sx={{ marginBottom: 3 }}
           >
-            Published on: {story.date}
+            Published on: {story.datePosted}
           </Typography>
 
-          <Typography variant="body1" paragraph>
-            {story.content}
-          </Typography>
+          <Typography
+            variant="body1"
+            paragraph
+            dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+          />
           <Typography variant="body2" color="primary" sx={{ marginTop: 2 }}>
             👍 Likes: 1
           </Typography>

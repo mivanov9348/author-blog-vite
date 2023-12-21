@@ -5,6 +5,7 @@ import {
   CardContent,
   Typography,
   Button,
+  Box,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import DOMPurify from "dompurify";
@@ -46,12 +47,13 @@ export default function StoryCard({ story, onStoryDelete }) {
         mb: 2,
         border: "3px solid gray",
         borderRadius: "10px",
+        backgroundColor: "gray",
         ":hover": {
           boxShadow: "0px 0px 5px 5px gray",
         },
       }}
     >
-      <CardActionArea component={NavLink} to={`/stories/${story.id}`}>
+      <CardActionArea component={NavLink} to={`/stories/${story._id}`}>
         <CardMedia
           component="img"
           height="240"
@@ -60,7 +62,15 @@ export default function StoryCard({ story, onStoryDelete }) {
           alt={story.title}
         />
 
-        <CardContent sx={{ borderTop: "4px solid gray", height: "150px" }}>
+        <CardContent
+          sx={{
+            borderTop: "4px solid gray",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: "100%",
+          }}
+        >
           <Typography gutterBottom variant="h6" component="div">
             {story.title}
           </Typography>
@@ -75,9 +85,16 @@ export default function StoryCard({ story, onStoryDelete }) {
         </CardContent>
       </CardActionArea>{" "}
       {user && user.role === "admin" && (
-        <Button sx={{ color: "red" }} onClick={handleDelete}>
-          Delete
-        </Button>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button sx={{ color: "red" }} onClick={handleDelete}>
+            Delete
+          </Button>
+        </Box>
       )}
     </Card>
   );

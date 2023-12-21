@@ -14,13 +14,17 @@ export function AuthProvider({ children }) {
     const userData = Cookies.get("user");
 
     if (userData) {
-      setUser(JSON.parse(userData));
+      try {
+        setUser(JSON.parse(userData));
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+      }
     }
   }, []);
 
   async function login(email, password) {
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch("http://localhost:3000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,22 +32,27 @@ export function AuthProvider({ children }) {
         body: JSON.stringify({ email, password }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        return true;
-      } else {
+      const data = await response.json(); // Парсваме веднъж и използваме резултата
+
+      if (!response.ok) {
+        throw new Error(data.message);
       }
+      if (!data.user) {
+        throw new Error("User data is missing from the response");
+      }
+      Cookies.set("user", JSON.stringify(data.user));
+      setUser(data.user);
+      return true;
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Login error:", error.message);
       return false;
     }
   }
 
   //register
-
   async function register(email, password) {
     try {
-      const response = await fetch("/api/register", {
+      const response = await fetch("http://localhost:3000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

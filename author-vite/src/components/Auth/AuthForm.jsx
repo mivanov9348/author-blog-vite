@@ -16,31 +16,41 @@ export default function AuthForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, register } = useAuth();
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
     setConfirmPassword(""); // Reset confirmPassword when toggling
   };
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
     if (isLogin) {
-      if (login(email, password)) {
+      const success = await login(email, password);
+      if (success) {
         navigate("/");
       } else {
         alert("Invalid credentials");
       }
     } else {
-      // Registration logic here
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+      const success = await register(email, password);
+      if (success) {
+        navigate("/");
+      } else {
+        alert("Registration Failed!");
+      }
     }
-  };
+  }
 
   return (
     <Container
       sx={{
         backgroundColor: "black",
-        height: "500px",
+        height: "600px",
         mt: 2,
         border: "2px solid white",
       }}
@@ -97,6 +107,7 @@ export default function AuthForm() {
             onChange={(e) => setEmail(e.target.value)}
             sx={{ mb: 2 }}
           />
+
           <TextField
             label="Password"
             type="password"

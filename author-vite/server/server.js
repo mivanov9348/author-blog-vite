@@ -8,61 +8,78 @@ const mongoose = require("./database");
 const { User, Post, Comment, Story } = require("../models/ModelsCollection");
 const app = express();
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
+
+app.use(cors());
+app.use(express.json());
 
 // CORS Middleware
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-
-app.use(express.json());
+//app.use((req, res, next) => {
+//res.header("Access-Control-Allow-Origin", "*");
+//res.header(
+//"Access-Control-Allow-Methods",
+//"GET, POST, OPTIONS, PUT, PATCH, DELETE"
+// );
+//res.header(
+//"Access-Control-Allow-Headers",
+//"Origin, X-Requested-With, Content-Type, Accept"
+//);
+//next();
+//});
 
 //loginregister
 
 //register
 app.post("/api/register", async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    console.log("Registering user:", req.body);
+    const { email, password } = req.body;
 
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    return res.status(400).send("Email already in use");
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already in use" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const user = new User({ email, password: hashedPassword });
+    await user.save();
+
+    res.status(201).send("User is successfully registered!");
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
-
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-  const user = new User({ email, password: hashedPassword });
-  await user.save();
-
-  res.status(201).send("User is successfully registered!");
 });
 
 //login
 app.post("/api/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-
-  if (!user) {
-    return res.status(401).send("Invalid credentials");
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    const token = jwt.sign({ userId: user._id }, "secretkey", {
+      expiresIn: "1h",
+    });
+    const userForResponse = {
+      _id: user._id,
+      email: user.email,
+      role: user.role,
+    };
+    res.json({
+      message: "Logged in successfully",
+      user: userForResponse,
+      token,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
-
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return res.status(401).send("Invalid credentials");
-  }
-
-  const token = jwt.sign({ userId: user._id }, "secretkey1", {
-    expiresIn: "1h",
-  });
-
-  res.send({ message: "Logged In!", token });
 });
 
 //authentication
@@ -179,7 +196,7 @@ app.post("/api/stories", (req, res) => {
     image: req.body.image,
     upvotes: req.body.upvotes,
     comments: req.body.comments,
-    mainPost: false,
+    mainStory: false,
   });
 
   newStory
@@ -209,6 +226,11 @@ app.delete("/api/stories/:id", authenticate, async (req, res) => {
     console.error("Error deleting story:", error);
     res.status(500).send("Error deleting story");
   }
+});
+
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
 });
 
 // Server Setup
