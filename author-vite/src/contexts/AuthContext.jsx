@@ -9,13 +9,16 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const userData = Cookies.get("user");
+    const authToken = Cookies.get("token");
 
-    if (userData) {
+    if (userData && authToken) {
       try {
         setUser(JSON.parse(userData));
+        setToken(authToken);
       } catch (error) {
         console.error("Error parsing user data:", error);
       }
@@ -32,15 +35,17 @@ export function AuthProvider({ children }) {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json(); // Парсваме веднъж и използваме резултата
+      const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message);
       }
-      if (!data.user) {
+      if (!data.user || !data.token) {
         throw new Error("User data is missing from the response");
       }
+
       Cookies.set("user", JSON.stringify(data.user));
+      Cookies.set("token", data.token);
       setUser(data.user);
       return true;
     } catch (error) {
@@ -69,11 +74,12 @@ export function AuthProvider({ children }) {
 
   function logout() {
     Cookies.remove("user");
+    Cookies.remove("token");
     setUser(null);
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider value={{ user, token, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

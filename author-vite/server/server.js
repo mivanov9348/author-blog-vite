@@ -10,22 +10,14 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
-app.use(cors());
-app.use(express.json());
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
 
-// CORS Middleware
-//app.use((req, res, next) => {
-//res.header("Access-Control-Allow-Origin", "*");
-//res.header(
-//"Access-Control-Allow-Methods",
-//"GET, POST, OPTIONS, PUT, PATCH, DELETE"
-// );
-//res.header(
-//"Access-Control-Allow-Headers",
-//"Origin, X-Requested-With, Content-Type, Accept"
-//);
-//next();
-//});
+app.use(cors(corsOptions));
+
+app.use(express.json());
 
 //loginregister
 
@@ -152,22 +144,12 @@ app.get("/uploads", (req, res) => {
   });
 });
 
-app.get("/api/stories", async (req, res) => {
-  try {
-    const stories = await Story.find();
-    res.json(stories);
-  } catch (error) {
-    res.status(500).send("Error fetching stories");
-  }
-});
-
 //dbb
 function createSummary(text) {
   return text.substring(0, 50) + (text.length > 50 ? "..." : "");
 }
 
 //posts
-
 app.post("/api/posts", (req, res) => {
   const newPost = new Post({
     title: req.body.title,
@@ -188,6 +170,30 @@ app.post("/api/posts", (req, res) => {
 
 //stories
 
+//getallstories
+app.get("/api/stories", async (req, res) => {
+  try {
+    const stories = await Story.find();
+    res.json(stories);
+  } catch (error) {
+    res.status(500).send("Error fetching stories");
+  }
+});
+
+//getstorybyid
+app.get("/api/stories/:id", async (req, res) => {
+  try {
+    const story = await Story.findById(req.params.id);
+    if (!story) {
+      return res.status(404).send("Story not found");
+    }
+    res.json(story);
+  } catch (error) {
+    console.error("Error fetching story:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 app.post("/api/stories", (req, res) => {
   const newStory = new Story({
     title: req.body.title,
@@ -207,7 +213,28 @@ app.post("/api/stories", (req, res) => {
     );
 });
 
+app.put("/api/stories/:id", authenticate, async (req, res) => {
+  try {
+    const { content } = req.body;
+    const story = await Story.findByIdAndUpdate(
+      req.params.id,
+      { content: content },
+      { new: true }
+    );
+
+    if (!story) {
+      return res.status(400).send("No story found with that Id");
+    }
+
+    res.json(story);
+  } catch (error) {
+    console.error("Error updating story", error);
+    res.status(500).send("Error updating story");
+  }
+});
+
 // Inside your Express server setup
+app.options("/api/stories/:id", cors());
 
 app.delete("/api/stories/:id", authenticate, async (req, res) => {
   try {

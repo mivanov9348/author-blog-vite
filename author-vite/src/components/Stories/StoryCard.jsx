@@ -12,33 +12,36 @@ import DOMPurify from "dompurify";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function StoryCard({ story, onStoryDelete }) {
-  const sanitizedSummary = DOMPurify.sanitize(story.summary);
   const { user } = useAuth();
 
-  function handleDelete() {
+  async function handleDelete() {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this story?"
     );
+
     if (confirmDelete) {
-      fetch(`http://localhost:3000/api/stories/${story._id}`, {
-        method: "DELETE",
-        credentials: "include",
-      })
-        .then((res) => {
-          if (!res.ok) {
-            // If the server responded with a non-OK status, we throw an error to jump to the catch block
-            throw new Error(`HTTP status ${res.status}`);
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/stories/${story._id}`,
+          {
+            method: "DELETE",
+            credentials: "include",
           }
-          return res.json();
-        })
-        .then(() => {
-          onStoryDelete(story._id);
-        })
-        .catch((error) => {
-          console.error("Error deleting the story:", error);
-        });
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP status ${response.status}`);
+        }
+
+        await response.json(); // assuming your server responds with JSON
+        onStoryDelete(story._id);
+      } catch (error) {
+        console.error("Error deleting the story!", error);
+      }
     }
   }
+
+  const sanitizedSummary = DOMPurify.sanitize(story.summary);
 
   return (
     <Card

@@ -21,7 +21,6 @@ export default function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const { user } = useAuth();
-  console.log(user);
 
   function handleSearchChange(e) {
     setSearchQuery(e.target.value);
