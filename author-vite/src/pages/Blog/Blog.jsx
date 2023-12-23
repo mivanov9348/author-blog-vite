@@ -3,24 +3,53 @@ import {
   CssBaseline,
   Grid,
   TextField,
-  IconButton,
   InputAdornment,
   Box,
+  IconButton,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import posts from "../../../public/data/posts.json";
 import BlogSidebar from "../../components/Blog/BlogSidebar";
 import MainPost from "../../components/Blog/MainPost";
 import PostCard from "../../components/Blog/PostCard";
 import AddPostModal from "../../components/Blog/AddPostModal";
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [posts, setPosts] = useState([]);
   const { user } = useAuth();
+  const { token } = useContext(AuthContext);
+
+  async function handleDelete(postId) {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/posts/${postId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to Delete the post!");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/posts")
+      .then((res) => res.json())
+      .then((data) => setPosts(data))
+      .catch((error) => console.error("Error on fetching", error));
+  }, []);
 
   function handleSearchChange(e) {
     setSearchQuery(e.target.value);
@@ -39,6 +68,8 @@ export default function Blog() {
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.summary.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  console.log(filteredPosts);
 
   return (
     <Container maxWidth={false} sx={{ mt: 0, mb: 1 }}>
@@ -79,7 +110,7 @@ export default function Blog() {
         </Grid>
 
         <Grid item xs={12} md={10}>
-          <MainPost post={posts[0]} />
+          {filteredPosts.length > 1 && <MainPost post={filteredPosts[1]} />}
         </Grid>
       </Grid>
       <TextField
@@ -101,7 +132,18 @@ export default function Blog() {
       />
       <Grid container spacing={4}>
         {filteredPosts.map((post) => (
-          <PostCard key={post.id} post={post} />
+          <>
+            <PostCard key={post.id} post={post} />
+            <IconButton
+              key={post.id}
+              onClick={() => handleDelete(post._id)}
+              sx={{
+                color: "red",
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </>
         ))}
       </Grid>
       {modalOpen && <AddPostModal onClose={handleCloseModal} />}

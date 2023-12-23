@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  // Importing necessary Material-UI components
   CssBaseline,
   Container,
   Grid,
@@ -17,14 +16,31 @@ import {
 } from "@mui/material";
 import KeyboardBackspaceSharpIcon from "@mui/icons-material/KeyboardBackspaceSharp";
 import { useNavigate, useParams } from "react-router-dom";
-import posts from "../../../public/data/posts.json";
-import { Fragment } from "react";
+import DOMPurify from "dompurify";
 
 export default function PostDetail() {
+  const [post, setPost] = useState();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const post = posts.find((post) => post.id === parseInt(id));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/posts/${id}`);
+        if (!response.ok) {
+          throw new Error("Post not found!");
+        }
+        const data = await response.json();
+        setPost(data);
+      } catch (error) {
+        console.error("Error fetching story:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(post);
 
   const [showComments, setShowComments] = useState(false);
 
@@ -44,19 +60,19 @@ export default function PostDetail() {
     setShowComments(!showComments);
   }
 
+  const contentSanitized = DOMPurify.sanitize(post.content);
+
   return (
     <Container maxWidth="xl" sx={{ my: 2, backgroundColor: "gray" }}>
       <CssBaseline />
-
       <IconButton onClick={handleBack} sx={{ mt: 2 }}>
         <KeyboardBackspaceSharpIcon sx={{ fontSize: "30px" }} />
       </IconButton>
-
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <CardMedia
             component="img"
-            image={post.image}
+            image={`http://localhost:3000${post.image}`}
             alt={post.title}
             sx={{
               width: "100%",
@@ -72,11 +88,14 @@ export default function PostDetail() {
             variant="subtitle1"
             sx={{ borderBottom: "2px solid black" }}
           >
-            {post.date}
+            date
           </Typography>
-          <Typography variant="body1" paragraph>
-            {post.content}
-          </Typography>
+          <Typography
+            variant="body1"
+            paragraph
+            dangerouslySetInnerHTML={{ __html: contentSanitized }}
+          />
+
           <Button onClick={toggleComments}>
             Comments ({post.comments.length})
           </Button>
@@ -116,8 +135,8 @@ export default function PostDetail() {
               </List>
             </Box>
           )}
-        </Grid>
-      </Grid>
+        </Grid>{" "}
+      </Grid>{" "}
     </Container>
   );
 }

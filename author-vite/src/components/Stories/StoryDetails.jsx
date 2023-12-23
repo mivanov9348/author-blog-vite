@@ -63,28 +63,47 @@ export default function StoryDetails() {
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
+      sx={{ px: 2 }}
     >
-      <Card sx={{ maxWidth: 600 }}>
-        <Button startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)}>
+      <Card
+        sx={{
+          maxWidth: 600,
+          width: "100%",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          bgcolor: "#f5f5f5",
+        }}
+      >
+        <Button
+          startIcon={<ArrowBackIcon />}
+          onClick={() => navigate(-1)}
+          sx={{ color: "#1976d2" }}
+        >
           Back
         </Button>
         <CardMedia
           component="img"
-          height="300"
+          height="400"
           image={`http://localhost:3000${story.image}`}
           alt={story.title}
+          sx={{ objectFit: "cover" }}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+        <CardContent sx={{ p: 3 }}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{ fontWeight: "bold", color: "#333" }}
+          >
             {story.title}
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
+          <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 2 }}>
             {story.datePosted}
           </Typography>
           <Typography
             variant="body2"
             color="text.secondary"
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+            sx={{ lineHeight: "1.6" }}
           />
         </CardContent>
       </Card>

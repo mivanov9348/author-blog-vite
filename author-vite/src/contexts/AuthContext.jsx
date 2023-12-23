@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 export const AuthContext = createContext();
 
 export function useAuth() {
-  return useContext(AuthContext); // Added return statement
+  return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }) {

@@ -15,7 +15,13 @@ export default function AllStories({ onStoryDelete }) {
       .catch((error) => console.error("Error on fetching", error));
   }, []);
 
+  console.log(stories);
+
   const mainStory = stories.find((story) => story.mainStory === true);
+
+  if (!mainStory) {
+    return null;
+  }
 
   function onStoryDelete(deletedStoryId) {
     setStories((currentStories) =>

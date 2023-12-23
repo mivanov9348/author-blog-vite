@@ -6,7 +6,6 @@ import { useState } from "react";
 
 export default function AddPostModal({ onClose }) {
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
 
@@ -17,8 +16,13 @@ export default function AddPostModal({ onClose }) {
   }
 
   function handleSetPost() {
+    if (!title || !content) {
+      alert("Title and content are required.");
+      return;
+    }
+
     if (!image) {
-      console.error("No image to upload.");
+      alert("Please select an image to upload.");
       return;
     }
 
@@ -29,15 +33,8 @@ export default function AddPostModal({ onClose }) {
       method: "POST",
       body: formData,
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        console.log("Image uploaded successfully:", data);
-
         const newPost = {
           title,
           content,
@@ -46,23 +43,23 @@ export default function AddPostModal({ onClose }) {
           comments: [],
         };
 
-        fetch("http://localhost:3000/api/posts", {
+        return fetch("http://localhost:3000/api/posts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newPost),
-        })
-          .then((res) => res.json())
-          .then((post) => {
-            console.log("Post Created", post);
-            setTitle("");
-            setDate("");
-            setContent("");
-            setImage(null);
-            onClose();
-          });
+        });
+      })
+      .then((response) => response.json())
+      .then(() => {
+        alert("Post created successfully.");
+        setTitle("");
+        setContent("");
+        setImage(null);
+        onClose();
       })
       .catch((error) => {
-        console.error("Error uploading the image:", error);
+        console.error("Error:", error);
+        alert("An error occurred while saving the post.");
       });
   }
 
@@ -84,7 +81,7 @@ export default function AddPostModal({ onClose }) {
           p: 2,
           borderRadius: 2,
           backgroundColor: "darkgray",
-          position: "relative", // added for positioning the close button
+          position: "relative",
         }}
       >
         <Box sx={{ position: "absolute", top: 8, right: 8 }}>

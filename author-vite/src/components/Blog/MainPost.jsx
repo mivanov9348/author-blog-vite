@@ -1,12 +1,15 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 export default function MainPost({ post }) {
+  const sanitizedSummary = DOMPurify.sanitize(post.summary);
+
   return (
     <Box
       component={NavLink}
-      to={`/blog/${post.id}`}
+      to={`/blog/${post._id}`}
       sx={{
         width: "100%",
         overflow: "hidden",
@@ -30,7 +33,7 @@ export default function MainPost({ post }) {
           borderRadius: "10px",
         }}
         alt={post.title}
-        src={post.image}
+        src={`http://localhost:3000${post.image}`}
       />
 
       <Box sx={{ padding: 2, color: "white" }}>
@@ -40,7 +43,10 @@ export default function MainPost({ post }) {
         <Typography variant="subtitle1" sx={{ mb: 1 }}>
           {post.date}
         </Typography>
-        <Typography variant="body1">{post.summary}</Typography>
+        <Typography
+          variant="body1"
+          dangerouslySetInnerHTML={{ __html: sanitizedSummary }}
+        />
       </Box>
     </Box>
   );

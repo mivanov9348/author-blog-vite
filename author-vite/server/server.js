@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "http://localhost:5137",
   credentials: true,
 };
 
@@ -150,14 +150,44 @@ function createSummary(text) {
 }
 
 //posts
+app.get("/api/posts", async (req, res) => {
+  try {
+    const posts = await Post.find();
+    console.log(posts);
+    res.json(posts); // This line is necessary to send the data back to the client.
+  } catch (error) {
+    console.error("Error fetching posts", error);
+    res.status(500).send("Error fetching posts");
+  }
+});
+
+app.get("/api/posts/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).send("Story not found");
+    }
+    res.json(post);
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 app.post("/api/posts", (req, res) => {
+  const { title, content, image, upvotes, comments } = req.body;
+
+  if (!title || !content) {
+    return res.status(400).json({ message: "Title and content are required" });
+  }
+
   const newPost = new Post({
-    title: req.body.title,
-    summary: createSummary(req.body.content),
-    content: req.body.content,
-    image: req.body.image,
-    upvotes: req.body.upvotes,
-    comments: req.body.comments,
+    title,
+    summary: createSummary(content),
+    content,
+    image,
+    upvotes: upvotes || 0,
+    comments: comments || [],
   });
 
   newPost
@@ -166,6 +196,19 @@ app.post("/api/posts", (req, res) => {
     .catch((err) =>
       res.status(400).json({ message: "Error creating Post", error: err })
     );
+});
+
+app.delete("/api/posts/:id", authenticate, async (req, res) => {
+  try {
+    const post = await Post.findByIdAndDelete(req.params.id);
+    if (!post) {
+      return res.status(404).send("Post not found!");
+    }
+    res.status(200).send("Post deleted successfully!");
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).send("Error deleting post");
+  }
 });
 
 //stories
@@ -244,6 +287,8 @@ app.delete("/api/stories/:id", authenticate, async (req, res) => {
     }
 
     const story = await Story.findByIdAndDelete(req.params.id);
+    console.log(story);
+
     if (!story) {
       return res.status(404).send("No story found with that ID");
     }

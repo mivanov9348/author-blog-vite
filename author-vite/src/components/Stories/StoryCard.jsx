@@ -12,7 +12,7 @@ import DOMPurify from "dompurify";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function StoryCard({ story, onStoryDelete }) {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
 
   async function handleDelete() {
     const confirmDelete = window.confirm(
@@ -26,6 +26,7 @@ export default function StoryCard({ story, onStoryDelete }) {
           {
             method: "DELETE",
             credentials: "include",
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
 
