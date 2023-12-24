@@ -36,9 +36,13 @@ export default function Blog() {
           },
         }
       );
+
       if (!response.ok) {
+        const errorResponse = await response.text(); // or response.json() if the server sends JSON
+        console.error("Server response:", errorResponse);
         throw new Error("Failed to Delete the post!");
       }
+      setPosts(posts.filter((post) => post._id !== postId));
     } catch (error) {
       console.error("Error:", error);
     }

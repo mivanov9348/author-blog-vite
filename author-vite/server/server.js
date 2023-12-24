@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
 const corsOptions = {
-  origin: "http://localhost:5137",
+  origin: "http://localhost:5173",
   credentials: true,
 };
 
@@ -55,7 +55,7 @@ app.post("/api/login", async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    const token = jwt.sign({ userId: user._id }, "secretkey", {
+    const token = jwt.sign({ userId: user._id }, "secretkey1", {
       expiresIn: "1h",
     });
     const userForResponse = {
@@ -77,23 +77,36 @@ app.post("/api/login", async (req, res) => {
 //authentication
 
 function authenticate(req, res, next) {
+  // Extract the Authorization header
   const bearerHeader = req.headers.authorization;
+
+  // Check if the Authorization header is present
   if (!bearerHeader) {
-    return res.status(401).send("Access Denied");
+    return res.status(401).json({ message: "Authentication required" });
   }
 
-  const token = bearerHeader.split(" ")[1];
-
-  if (!token) {
-    return res.status(401).send("Acess Denied");
+  // Attempt to extract the token
+  const parts = bearerHeader.split(" ");
+  if (parts.length !== 2 || parts[0] !== "Bearer") {
+    return res.status(401).json({ message: "Invalid authentication format" });
   }
+  const token = parts[1];
 
+  // Verify the token
   try {
-    const verified = jwt.verify(token, "secretkey1");
+    const verified = jwt.verify(token, "secretkey1"); // Replace "secretkey1" with your actual secret key
     req.user = verified;
     next();
   } catch (error) {
-    res.status(400).send("Invalid token");
+    // Handle different types of JWT errors
+    if (error instanceof jwt.TokenExpiredError) {
+      return res.status(401).json({ message: "Token expired" });
+    } else if (error instanceof jwt.JsonWebTokenError) {
+      return res.status(401).json({ message: "Invalid token" });
+    } else {
+      // Generic error message for other types of JWT errors
+      return res.status(401).json({ message: "Authentication failed" });
+    }
   }
 }
 

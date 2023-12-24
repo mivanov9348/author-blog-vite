@@ -13,7 +13,7 @@ export default function PostCard({ post }) {
   const sanitizedSummary = DOMPurify.sanitize(post.summary);
 
   return (
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} md={5.5}>
       <Box>
         <Card
           component={NavLink}

@@ -1,5 +1,12 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { AppBar, Toolbar, Button, Box, Typography } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  Typography,
+  Avatar,
+} from "@mui/material";
 import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
 
@@ -67,7 +74,7 @@ export default function Header() {
           </Button>
         </Box>
 
-        <Box display="flex">
+        <Box display="flex" alignItems="center">
           {!user ? (
             <>
               {" "}
@@ -84,14 +91,13 @@ export default function Header() {
             </>
           ) : (
             <>
-              <Button
-                variant="h6"
-                sx={{ marginRight: 2 }}
+              <Avatar
                 component={NavLink}
                 to="/userconfig"
-              >
-                {user.email.split("@")[0]}
-              </Button>
+                src={`http://localhost:3000/uploads/1.png`}
+                alt="Profile"
+                sx={{ width: 40, height: 40, marginRight: 2 }}
+              />
               <Button
                 color="inherit"
                 onClick={handleLogout}
